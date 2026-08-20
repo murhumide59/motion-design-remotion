@@ -78,10 +78,10 @@ les 13 perçages espacés de 10 cm sur le joint horizontal.
 
 1. **`src/content.ts`** — le site, l'e-mail et le numéro de stand sont encore
    des valeurs d'exemple (le téléphone 03 20 06 55 11 est le bon).
-2. **`public/mascotte.png`** et **`public/logo.png`** — les visuels officiels.
-   Pour les mettre à jour, il suffit de remplacer ces fichiers (voir
-   `brand/README.md` : la mascotte livrée était sans canal alpha, elle a été
-   détourée).
+2. **`public/`** — les visuels officiels : `logo.png`, `mascotte.png` (Victor
+   avec son panneau, séquences 1 et 6) et `mascotte2.png` (Victor bras
+   ouverts, séquences 2, 3 et 5). Pour les mettre à jour, il suffit de
+   remplacer ces fichiers (voir `brand/README.md`).
 3. **`src/content.ts` → `SCRIPT`** — les sous-titres et leur minutage
    (`from` / `durationInFrames`, en frames, relatifs au début de la séquence)
    si un voice-over est ajouté ensuite.

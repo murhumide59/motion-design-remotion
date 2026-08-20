@@ -154,10 +154,11 @@ export const Scene3Diagnostic: React.FC<{ durationInFrames: number }> = ({
         </div>
 
         <Mascotte
-          height={420}
+          src="mascotte2.png"
+          height={380}
           delay={10}
           slideFrom={-80}
-          style={{ position: "absolute", left: 196, bottom: 250 }}
+          style={{ position: "absolute", left: 168, bottom: 250 }}
         />
 
         <CaptionTrack lines={SCRIPT.diagnostic} />

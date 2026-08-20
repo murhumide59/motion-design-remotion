@@ -6,7 +6,11 @@ fichier : aucun code à modifier.
 | Fichier | Utilisé par |
 |---|---|
 | `logo.png` | `src/components/Logo.tsx` — logo officiel Mur Humide. |
-| `mascotte.png` | `src/components/Mascotte.tsx` — Victor, détouré à partir de `brand/lamascotte.png`. |
+| `mascotte.png` | Victor avec son panneau « Diagnostic gratuit » — séquences 1 et 6. Détouré à partir de `brand/lamascotte.png`. |
+| `mascotte2.png` | Victor bras ouverts — séquences 2, 3 et 5. Recadré depuis `brand/mascotte2.png` (déjà fourni avec transparence). |
+
+Le choix du visuel se fait par séquence, via la prop `src` du composant
+`Mascotte` (`<Mascotte src="mascotte2.png" … />`).
 
 Recommandations pour un remplacement de la mascotte :
 

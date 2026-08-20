@@ -3,6 +3,12 @@ import { Img, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { bob, useSpringIn } from "../animations";
 
 type Props = {
+  /**
+   * Fichier de `public/` à utiliser. `mascotte.png` (Victor avec son panneau)
+   * pour l'intro et l'écran de fin, `mascotte2.png` (bras ouverts) pour les
+   * séquences explicatives.
+   */
+  src?: string;
   /** Hauteur de la mascotte en px. */
   height?: number;
   /** Frame d'apparition (relative à la séquence). */
@@ -19,11 +25,11 @@ type Props = {
 /**
  * Mascotte Mur Humide (Victor).
  *
- * L'image vit dans `public/mascotte.png` (visuel officiel détouré, cf.
- * `brand/README.md`) : remplacez ce fichier pour changer la mascotte, sans
- * toucher au code.
+ * Les visuels vivent dans `public/` (cf. `brand/README.md`) : remplacez le
+ * fichier correspondant pour changer la mascotte, sans toucher au code.
  */
 export const Mascotte: React.FC<Props> = ({
+  src = "mascotte.png",
   height = 620,
   delay = 0,
   slideFrom = 0,
@@ -55,7 +61,7 @@ export const Mascotte: React.FC<Props> = ({
       }}
     >
       <Img
-        src={staticFile("mascotte.png")}
+        src={staticFile(src)}
         style={{
           height,
           width: "auto",

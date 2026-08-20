@@ -53,14 +53,15 @@ export const Scene2Probleme: React.FC<{ durationInFrames: number }> = ({
           delay={196}
           rotate={2}
           accent={COLORS.mould}
-          style={{ left: 214, top: 382 }}
+          style={{ left: 214, top: 364 }}
         />
 
         <Mascotte
-          height={360}
+          src="mascotte2.png"
+          height={372}
           delay={14}
           slideFrom={-90}
-          style={{ position: "absolute", left: 238, bottom: 250 }}
+          style={{ position: "absolute", left: 214, bottom: 250 }}
         />
 
         <CaptionTrack lines={SCRIPT.probleme} />
