@@ -20,6 +20,8 @@ type ToolProps = {
   shake?: number;
   scale?: number;
   frame?: number;
+  /** Couleur d'accent de l'outil (charte du projet par défaut). */
+  accent?: string;
 };
 
 /** Perceuse. */
@@ -30,6 +32,7 @@ export const Drill: React.FC<ToolProps> = ({
   shake = 0,
   scale = 1,
   frame = 0,
+  accent = COLORS.blue,
 }) => {
   const wob = shake * Math.sin(frame * 1.9) * 3;
   const jitter = shake * Math.sin(frame * 2.7) * 2.5;
@@ -49,7 +52,7 @@ export const Drill: React.FC<ToolProps> = ({
       <rect x={-110} y={-22} width={36} height={44} rx={8} fill="#78858D" stroke={OUTLINE} strokeWidth={5} />
       {/* Corps */}
       <rect x={-250} y={-38} width={144} height={76} rx={22} fill="#414F59" stroke={OUTLINE} strokeWidth={6} />
-      <rect x={-244} y={-32} width={120} height={20} rx={10} fill={COLORS.blue} />
+      <rect x={-244} y={-32} width={120} height={20} rx={10} fill={accent} />
       <rect x={-276} y={-26} width={32} height={52} rx={12} fill="#2E3A42" stroke={OUTLINE} strokeWidth={6} />
       {/* Poignée */}
       <g transform="translate(-198 26) rotate(12)">
@@ -69,6 +72,7 @@ export const InjectionGun: React.FC<ToolProps> = ({
   shake = 0,
   scale = 1,
   frame = 0,
+  accent = COLORS.blue,
 }) => {
   const wob = shake * Math.sin(frame * 1.3) * 2;
 
@@ -84,7 +88,7 @@ export const InjectionGun: React.FC<ToolProps> = ({
       />
       {/* Cartouche */}
       <rect x={-250} y={-40} width={196} height={80} rx={18} fill={COLORS.white} stroke={OUTLINE} strokeWidth={6} />
-      <rect x={-232} y={-28} width={110} height={56} rx={10} fill={COLORS.blue} />
+      <rect x={-232} y={-28} width={110} height={56} rx={10} fill={accent} />
       <rect x={-224} y={-16} width={94} height={10} rx={5} fill={COLORS.white} opacity={0.75} />
       <rect x={-224} y={2} width={64} height={8} rx={4} fill={COLORS.white} opacity={0.5} />
       {/* Berceau + tige */}
@@ -112,7 +116,9 @@ export const TapeMeasure: React.FC<{
   y: number;
   label: string;
   progress: number;
-}> = ({ x1, x2, y, label, progress }) => {
+  /** Grossit la cote sans changer la longueur du ruban. */
+  labelScale?: number;
+}> = ({ x1, x2, y, label, progress, labelScale = 1 }) => {
   const w = (x2 - x1) * progress;
   return (
     <g opacity={Math.min(1, progress * 2)}>
@@ -133,7 +139,7 @@ export const TapeMeasure: React.FC<{
         ))}
       </g>
       {/* Cote */}
-      <g transform={`translate(${(x1 + x2) / 2} ${y - 74})`} opacity={progress > 0.85 ? 1 : 0}>
+      <g transform={`translate(${(x1 + x2) / 2} ${y - 74 * labelScale}) scale(${labelScale})`} opacity={progress > 0.85 ? 1 : 0}>
         <rect x={-92} y={-32} width={184} height={62} rx={20} fill={COLORS.white} stroke={OUTLINE} strokeWidth={6} />
         <text
           x={0}

@@ -15,10 +15,18 @@ résultat.
 
 ```bash
 npm install
-npm run dev      # ouvre Remotion Studio (prévisualisation + timeline)
-npm run render   # rend out/murhumide.mp4
-npm run lint     # eslint + tsc
+npm run dev             # ouvre Remotion Studio (prévisualisation + timeline)
+npm run render          # 16:9 → out/murhumide.mp4
+npm run render:tiktok   # 9:16 → out/murhumide-tiktok.mp4
+npm run lint            # eslint + tsc
 ```
+
+Deux compositions sont disponibles :
+
+| Composition | Format | Cadence | Durée | Usage |
+|---|---|---|---|---|
+| `MurhumideVideo` | 1920x1080 | 30 fps | 70 s | Écran TV de salon, en boucle |
+| `MurhumideTikTok` | 1080x1920 | 25 fps | 45 s | TikTok / Reels / LinkedIn |
 
 > Environnement sans Chrome téléchargeable ? Ajoutez
 > `--browser-executable=/chemin/vers/chrome` à la commande de rendu.
@@ -104,3 +112,31 @@ La vidéo est muette : les textes parlés sont affichés en sous-titres, ce qui
 convient à un écran de salon sans son. Pour ajouter une voix off, déposez le
 fichier dans `public/` et montez-le avec `<Audio src={staticFile(...)} />`
 dans `MurhumideVideo.tsx`.
+
+
+## Version verticale — « Stopper l'humidité montante »
+
+`MurhumideTikTok` suit le storyboard PDF (version 9:16, 45 s) : accroche en
+macro dès la frame 0, sous-titres remontés à 25 % du bas pour rester hors de
+l'interface TikTok, montage cut sec, compréhension totale sans le son.
+
+```
+src/tiktok/
+├─ TikTokVideo.tsx      assemblage des 10 plans
+├─ timeline.ts          durées reprises du tableau « Version 9x16 »
+├─ content.ts           sous-titres, mot pour mot du storyboard
+├─ theme.ts             charte du storyboard (navy #003366 / orange #F07800)
+├─ framing.ts           deux cadrages du mur : DIAG (large) et WORK (chantier)
+├─ footage.ts           branchement des prises de vue réelles
+├─ components/          bandeau sous-titre, pastille d'étape, outils, décors
+└─ plans/               un fichier par séquence
+```
+
+### Prises de vue réelles
+
+Le storyboard mêle motion design et tournage. Les plans à tourner
+(décroûtage, perçage, injection…) sont pour l'instant joués par des
+animations de remplacement, si bien que la vidéo est diffusable dès
+maintenant. Pour brancher un rush : déposer le fichier dans
+`public/footage/` et renseigner son nom dans `src/tiktok/footage.ts` — voir
+`public/footage/README.md` pour la liste de tournage et les réglages.

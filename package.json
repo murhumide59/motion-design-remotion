@@ -23,6 +23,7 @@
     "dev": "remotion studio",
     "build": "remotion bundle",
     "render": "remotion render MurhumideVideo out/murhumide.mp4",
+    "render:tiktok": "remotion render MurhumideTikTok out/murhumide-tiktok.mp4",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"
   }

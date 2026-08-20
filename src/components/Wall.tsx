@@ -57,21 +57,20 @@ const PEBBLES = Array.from({ length: 26 }, (_, i) => ({
 }));
 
 const FLAKES = Array.from({ length: 11 }, (_, i) => {
-  const x = WALL.x + 26 + random(`fx${i}`) * (WALL.w - 110);
-  const y = 196 + random(`fy${i}`) * 150;
-  const w = 34 + random(`fw${i}`) * 40;
-  const h = 30 + random(`fh${i}`) * 34;
-  const jitter = (k: string) => (random(`fj${i}${k}`) - 0.5) * 18;
-  const points = [
-    [x + jitter("a"), y + jitter("b")],
-    [x + w + jitter("c"), y + jitter("d")],
-    [x + w + jitter("e"), y + h + jitter("f")],
-    [x + jitter("g"), y + h + jitter("h")],
-  ];
+  const cx = WALL.x + 60 + random(`fx${i}`) * (WALL.w - 120);
+  const cy = 200 + random(`fy${i}`) * 150;
+  const rx = 13 + random(`frx${i}`) * 15;
+  const ry = 11 + random(`fry${i}`) * 12;
+  const n = 7;
+  const pts = Array.from({ length: n }, (_, k) => {
+    const a = (Math.PI * 2 * k) / n;
+    const j = 0.62 + random(`fj${i}${k}`) * 0.7;
+    return [cx + Math.cos(a) * rx * j, cy + Math.sin(a) * ry * j];
+  });
   return {
-    d: `M${points.map((p) => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" L")} Z`,
-    cx: x + w / 2,
-    cy: y + h / 2,
+    d: `M${pts.map((q) => `${q[0].toFixed(1)} ${q[1].toFixed(1)}`).join(" L")} Z`,
+    cx,
+    cy,
     dir: random(`fd${i}`) > 0.5 ? 1 : -1,
     start: i / 13,
   };
@@ -122,6 +121,12 @@ export type WallProps = {
   style?: React.CSSProperties;
   /** Identifiant unique : les `id` SVG doivent être uniques par instance. */
   uid?: string;
+  /** Couleur des flèches d'humidité (le storyboard 9:16 les veut orange). */
+  arrowColor?: string;
+  /** Couleurs de la barrière injectée : trait et auréole. */
+  barrierColor?: { line: string; glow: string; lineDark: string };
+  /** Couleur du repère de joint. */
+  jointColor?: string;
 };
 
 /**
@@ -144,6 +149,13 @@ export const Wall: React.FC<WallProps> = ({
   width = 960,
   style,
   uid = "w",
+  arrowColor = COLORS.dampDark,
+  barrierColor = {
+    line: COLORS.barrier,
+    lineDark: COLORS.blueDark,
+    glow: COLORS.barrierGlow,
+  },
+  jointColor = COLORS.blue,
 }) => {
   const frame = useCurrentFrame();
 
@@ -185,9 +197,9 @@ export const Wall: React.FC<WallProps> = ({
           <stop offset="100%" stopColor={COLORS.soilDark} />
         </linearGradient>
         <linearGradient id={id("barrier")} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor={COLORS.blueDark} />
-          <stop offset="45%" stopColor={COLORS.barrier} />
-          <stop offset="100%" stopColor={COLORS.blueLight} />
+          <stop offset="0%" stopColor={barrierColor.lineDark} />
+          <stop offset="45%" stopColor={barrierColor.line} />
+          <stop offset="100%" stopColor={barrierColor.glow} />
         </linearGradient>
         <filter id={id("glow")} x="-40%" y="-400%" width="180%" height="900%">
           <feGaussianBlur stdDeviation="6" result="b" />
@@ -359,7 +371,7 @@ export const Wall: React.FC<WallProps> = ({
                     <line x1={0} y1={32} x2={0} y2={-10} />
                     <polyline points="-13,4 0,-11 13,4" />
                   </g>
-                  <g stroke={COLORS.dampDark} strokeWidth={6}>
+                  <g stroke={arrowColor} strokeWidth={6}>
                     <line x1={0} y1={32} x2={0} y2={-10} />
                     <polyline points="-13,4 0,-11 13,4" />
                   </g>
@@ -451,8 +463,8 @@ export const Wall: React.FC<WallProps> = ({
             width={WALL.w + 8}
             height={26}
             rx={13}
-            fill={COLORS.bluePale}
-            opacity={0.35}
+            fill={jointColor}
+            opacity={0.16}
           />
           <rect
             x={WALL.x - 4}
@@ -461,7 +473,7 @@ export const Wall: React.FC<WallProps> = ({
             height={26}
             rx={13}
             fill="none"
-            stroke={COLORS.blue}
+            stroke={jointColor}
             strokeWidth={5}
             strokeDasharray="15 10"
           />
@@ -486,7 +498,7 @@ export const Wall: React.FC<WallProps> = ({
                 cy={JOINT_Y}
                 rx={32 * p}
                 ry={22 * p}
-                fill={COLORS.barrierGlow}
+                fill={barrierColor.glow}
                 opacity={0.5 * p}
                 filter={`url(#${id("soft")})`}
               />
