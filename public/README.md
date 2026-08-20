@@ -1,18 +1,16 @@
 # public/
 
-## mascotte.png
+Assets utilisés au rendu. Pour changer un visuel, il suffit de remplacer le
+fichier : aucun code à modifier.
 
-⚠️ **Visuel provisoire.** L'image actuelle est une approximation de Victor,
-dessinée à la main en attendant le fichier officiel de la mascotte.
+| Fichier | Utilisé par |
+|---|---|
+| `logo.png` | `src/components/Logo.tsx` — logo officiel Mur Humide. |
+| `mascotte.png` | `src/components/Mascotte.tsx` — Victor, détouré à partir de `brand/lamascotte.png`. |
 
-Pour la remplacer : écrasez simplement `mascotte.png` par le visuel définitif.
+Recommandations pour un remplacement de la mascotte :
 
-Recommandations :
-
-- PNG **à fond transparent**
-- format **portrait**, environ 900 × 1200 px (ou plus grand)
-- personnage **centré**, pieds proches du bord bas de l'image
-
-Le composant `src/components/Mascotte.tsx` gère l'entrée (fondu + scale
-spring), la respiration et le geste de salut : aucune modification de code
-n'est nécessaire.
+- PNG **à fond réellement transparent** (le fichier d'origine était en RVB, le
+  damier était aplati dans l'image et a dû être détouré) ;
+- format **portrait**, personnage cadré au plus juste ;
+- le composant gère l'entrée (fondu + spring), la respiration et le salut.

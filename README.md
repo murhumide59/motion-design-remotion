@@ -38,6 +38,8 @@ continu ; le fond et la barre de progression ne sont jamais coupés.
 ## Structure du code
 
 ```
+brand/                     fichiers sources fournis par le client
+public/                    assets utilisés au rendu (logo.png, mascotte.png)
 src/
 ├─ index.ts               point d'entrée Remotion
 ├─ Root.tsx               déclaration de la composition
@@ -49,7 +51,7 @@ src/
 ├─ components/            briques réutilisables
 │  ├─ Scene.tsx           enveloppe de séquence (fondu croisé)
 │  ├─ Background.tsx      fond continu de la vidéo
-│  ├─ Logo.tsx            logo Mur Humide reconstitué en SVG (briques + wordmark)
+│  ├─ Logo.tsx            logo officiel (public/logo.png) + « HAUTS-DE-FRANCE »
 │  ├─ Mascotte.tsx        Victor, la mascotte animée (public/mascotte.png)
 │  ├─ Caption.tsx         sous-titres synchronisés du commentaire
 │  ├─ SceneHeader.tsx     bandeau « étape N + titre » et logo
@@ -74,17 +76,13 @@ les 13 perçages espacés de 10 cm sur le joint horizontal.
 
 ## À personnaliser avant diffusion
 
-1. **`public/mascotte.png`** — remplacer le placeholder par le visuel officiel
-   de **Victor** (PNG à fond transparent, format portrait, ~900 × 1200 px).
-   Aucun code à modifier : le composant gère l'entrée, la respiration et le
-   salut.
-2. **`src/components/Logo.tsx`** — le logo est reconstitué en SVG (bloc de
-   briques orange + « MUR HUMIDE » bleu + « HAUTS-DE-FRANCE »). Pour utiliser
-   le fichier officiel, déposez-le dans `public/logo.png` et remplacez le
-   contenu du composant par un `<Img src={staticFile("logo.png")} />`.
-3. **`src/content.ts`** — le site, l'e-mail et le numéro de stand sont encore
+1. **`src/content.ts`** — le site, l'e-mail et le numéro de stand sont encore
    des valeurs d'exemple (le téléphone 03 20 06 55 11 est le bon).
-4. **`src/content.ts` → `SCRIPT`** — les sous-titres et leur minutage
+2. **`public/mascotte.png`** et **`public/logo.png`** — les visuels officiels.
+   Pour les mettre à jour, il suffit de remplacer ces fichiers (voir
+   `brand/README.md` : la mascotte livrée était sans canal alpha, elle a été
+   détourée).
+3. **`src/content.ts` → `SCRIPT`** — les sous-titres et leur minutage
    (`from` / `durationInFrames`, en frames, relatifs au début de la séquence)
    si un voice-over est ajouté ensuite.
 

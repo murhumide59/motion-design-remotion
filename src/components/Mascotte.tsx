@@ -19,8 +19,8 @@ type Props = {
 /**
  * Mascotte Mur Humide (Victor).
  *
- * L'image vit dans `public/mascotte.png` : remplacez simplement ce fichier
- * (PNG à fond transparent, format portrait) pour changer la mascotte, sans
+ * L'image vit dans `public/mascotte.png` (visuel officiel détouré, cf.
+ * `brand/README.md`) : remplacez ce fichier pour changer la mascotte, sans
  * toucher au code.
  */
 export const Mascotte: React.FC<Props> = ({
@@ -42,8 +42,8 @@ export const Mascotte: React.FC<Props> = ({
   const slide = interpolate(enter, [0, 1], [slideFrom, 0]);
 
   /* Respiration permanente + balancement « coucou ». */
-  const breathe = bob(frame, 78, 10);
-  const tilt = wave ? bob(frame, 26, 7) : bob(frame, 110, 1.6);
+  const breathe = bob(frame, 82, 8);
+  const tilt = wave ? bob(frame, 30, 3.5) : bob(frame, 110, 1.2);
 
   return (
     <div

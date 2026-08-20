@@ -227,11 +227,11 @@ export const Scene5Resultat: React.FC<{ durationInFrames: number }> = ({
         </div>
 
         <Mascotte
-          height={360}
+          height={380}
           delay={16}
           slideFrom={70}
           wave
-          style={{ position: "absolute", left: 1520, bottom: 210 }}
+          style={{ position: "absolute", left: 1524, bottom: 250 }}
         />
 
         <CaptionTrack lines={SCRIPT.resultat} />

@@ -128,7 +128,7 @@ export const Scene6Cta: React.FC<{ durationInFrames: number }> = ({
               transformOrigin: "0% 50%",
             }}
           >
-            <Logo variant="full" size={300} />
+            <Logo size={252} showBaseline />
           </div>
 
           <div
@@ -183,11 +183,11 @@ export const Scene6Cta: React.FC<{ durationInFrames: number }> = ({
         </div>
 
         <Mascotte
-          height={520}
+          height={560}
           delay={18}
           slideFrom={120}
           wave
-          style={{ position: "absolute", left: 1424, bottom: 246 }}
+          style={{ position: "absolute", left: 1440, bottom: 224 }}
         />
 
         <CaptionTrack lines={SCRIPT.cta} />

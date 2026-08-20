@@ -59,7 +59,7 @@ export const SceneHeader: React.FC<Props> = ({ index, title, delay = 6 }) => {
         </div>
       </div>
 
-      <Logo size={54} />
+      <Logo size={110} />
     </div>
   );
 };

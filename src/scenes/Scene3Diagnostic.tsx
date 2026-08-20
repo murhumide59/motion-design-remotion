@@ -67,7 +67,7 @@ export const Scene3Diagnostic: React.FC<{ durationInFrames: number }> = ({
           style={{
             position: "absolute",
             left: 636,
-            top: 244,
+            top: 228,
             width: 548,
             background: COLORS.white,
             borderRadius: 28,
@@ -125,7 +125,7 @@ export const Scene3Diagnostic: React.FC<{ durationInFrames: number }> = ({
           style={{
             position: "absolute",
             left: 690,
-            top: 560,
+            top: 528,
             width: 440,
             opacity: Math.min(1, gauge * 3),
           }}
@@ -154,10 +154,10 @@ export const Scene3Diagnostic: React.FC<{ durationInFrames: number }> = ({
         </div>
 
         <Mascotte
-          height={430}
+          height={420}
           delay={10}
           slideFrom={-80}
-          style={{ position: "absolute", left: 190, bottom: 210 }}
+          style={{ position: "absolute", left: 196, bottom: 250 }}
         />
 
         <CaptionTrack lines={SCRIPT.diagnostic} />

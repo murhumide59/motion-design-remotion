@@ -46,21 +46,21 @@ export const Scene2Probleme: React.FC<{ durationInFrames: number }> = ({
           text="Plâtrage qui se détache ?"
           delay={152}
           rotate={-2.5}
-          style={{ left: 128, top: 268 }}
+          style={{ left: 128, top: 250 }}
         />
         <Callout
           text="Moisissures ?"
           delay={196}
           rotate={2}
           accent={COLORS.mould}
-          style={{ left: 232, top: 404 }}
+          style={{ left: 214, top: 382 }}
         />
 
         <Mascotte
-          height={400}
+          height={360}
           delay={14}
           slideFrom={-90}
-          style={{ position: "absolute", left: 240, bottom: 218 }}
+          style={{ position: "absolute", left: 238, bottom: 250 }}
         />
 
         <CaptionTrack lines={SCRIPT.probleme} />

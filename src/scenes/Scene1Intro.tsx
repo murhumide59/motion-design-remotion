@@ -20,11 +20,11 @@ export const Scene1Intro: React.FC<{ durationInFrames: number }> = ({
     <Scene durationInFrames={durationInFrames}>
       <AbsoluteFill>
         <Mascotte
-          height={600}
+          height={640}
           delay={12}
           slideFrom={-160}
           wave
-          style={{ position: "absolute", left: 170, bottom: 246 }}
+          style={{ position: "absolute", left: 152, bottom: 250 }}
         />
 
         <div
@@ -32,7 +32,7 @@ export const Scene1Intro: React.FC<{ durationInFrames: number }> = ({
             position: "absolute",
             left: 900,
             right: 120,
-            top: 186,
+            top: 150,
           }}
         >
           <div
@@ -42,7 +42,7 @@ export const Scene1Intro: React.FC<{ durationInFrames: number }> = ({
               transformOrigin: "0% 50%",
             }}
           >
-            <Logo variant="full" size={232} />
+            <Logo size={196} showBaseline />
           </div>
 
           <div
