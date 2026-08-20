@@ -1,12 +1,11 @@
 import React from "react";
 import { AbsoluteFill, Sequence } from "remotion";
 import { COLORS, FONT } from "./theme";
-import { Background } from "./components/Background";
-import { ProgressBar } from "./components/ProgressBar";
+import { Set } from "./components/Set";
 import { Scene1Intro } from "./scenes/Scene1Intro";
-import { Scene2Probleme } from "./scenes/Scene2Probleme";
-import { Scene3Diagnostic } from "./scenes/Scene3Diagnostic";
-import { Scene4Solution } from "./scenes/Scene4Solution";
+import { Scene2Constat } from "./scenes/Scene2Constat";
+import { Scene3Percage } from "./scenes/Scene3Percage";
+import { Scene4Injection } from "./scenes/Scene4Injection";
 import { Scene5Resultat } from "./scenes/Scene5Resultat";
 import { Scene6Cta } from "./scenes/Scene6Cta";
 import {
@@ -23,22 +22,22 @@ const SCENE_COMPONENTS: Record<
   React.FC<{ durationInFrames: number }>
 > = {
   intro: Scene1Intro,
-  probleme: Scene2Probleme,
-  diagnostic: Scene3Diagnostic,
-  solution: Scene4Solution,
+  constat: Scene2Constat,
+  percage: Scene3Percage,
+  injection: Scene4Injection,
   resultat: Scene5Resultat,
   cta: Scene6Cta,
 };
 
 /**
- * Vidéo Murhumide — 1920x1080, 30 fps, 70 s.
- * Les scènes se recouvrent de `SCENE_OVERLAP` frames pour un fondu croisé ;
- * le fond et la barre de progression restent continus.
+ * « Victor fait l'injection » — 1920x1080, 30 fps, 70 s.
+ * Le décor (ciel, sol, mur) est rendu une fois pour toutes et évolue avec la
+ * frame absolue ; chaque séquence n'ajoute que Victor, ses outils et son texte.
  */
 export const MurhumideVideo: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: COLORS.offWhite, fontFamily: FONT }}>
-      <Background />
+      <Set />
 
       {SCENE_ORDER.map((id, i) => {
         const Component = SCENE_COMPONENTS[id];
@@ -56,8 +55,6 @@ export const MurhumideVideo: React.FC = () => {
           </Sequence>
         );
       })}
-
-      <ProgressBar />
     </AbsoluteFill>
   );
 };

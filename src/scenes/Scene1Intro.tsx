@@ -1,94 +1,71 @@
 import React from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
-import { COLORS, SHADOW } from "../theme";
-import { CaptionTrack } from "../components/Caption";
 import { Logo } from "../components/Logo";
 import { Mascotte } from "../components/Mascotte";
 import { Scene } from "../components/Scene";
-import { MASCOTTE_NAME, SCRIPT } from "../content";
-import { fadeUp, useSpringIn } from "../animations";
+import { SpeechTrack } from "../components/SpeechBubble";
+import { GROUND, VICTOR_BOTTOM, VICTOR_H } from "../components/Stage";
+import { SCRIPT } from "../content";
+import { useSpringIn } from "../animations";
 
-/** Séquence 1 — Intro (0 → 8 s) : mascotte + logo Murhumide. */
+/** Séquence 1 — Victor arrive sur le chantier et se présente (0 → 8 s). */
 export const Scene1Intro: React.FC<{ durationInFrames: number }> = ({
   durationInFrames,
 }) => {
   const frame = useCurrentFrame();
-  const logoIn = useSpringIn(4, { damping: 13, mass: 0.8, stiffness: 100 });
-  const logoScale = interpolate(logoIn, [0, 1], [0.7, 1]);
+  const enter = useSpringIn(4, { damping: 15, mass: 0.9, stiffness: 90 });
+  const left = interpolate(enter, [0, 1], [-620, 420]);
+
+  const logoIn = useSpringIn(14, { damping: 13, mass: 0.7, stiffness: 110 });
+  const logoOpacity = interpolate(frame, [160, 205], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   return (
     <Scene durationInFrames={durationInFrames}>
       <AbsoluteFill>
-        <Mascotte
-          height={640}
-          delay={12}
-          slideFrom={-160}
-          wave
-          style={{ position: "absolute", left: 152, bottom: 250 }}
-        />
-
         <div
           style={{
             position: "absolute",
-            left: 900,
-            right: 120,
-            top: 150,
+            left: 1180,
+            top: 286,
+            opacity: Math.min(1, logoIn * 1.4) * logoOpacity,
+            transform: `scale(${interpolate(logoIn, [0, 1], [0.6, 1])})`,
+            transformOrigin: "50% 50%",
           }}
         >
-          <div
-            style={{
-              opacity: Math.min(1, logoIn * 1.4),
-              transform: `scale(${logoScale})`,
-              transformOrigin: "0% 50%",
-            }}
-          >
-            <Logo size={196} showBaseline />
-          </div>
-
-          <div
-            style={{
-              marginTop: 50,
-              fontSize: 74,
-              lineHeight: 1.14,
-              fontWeight: 800,
-              color: COLORS.ink,
-              ...fadeUp(frame, 34, 24),
-            }}
-          >
-            Les remontées capillaires,
-            <br />
-            <span style={{ color: COLORS.blue }}>expliquées simplement.</span>
-          </div>
-
-          <div
-            style={{
-              marginTop: 46,
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 18,
-              background: COLORS.white,
-              borderRadius: 999,
-              padding: "18px 34px",
-              boxShadow: SHADOW.soft,
-              fontSize: 34,
-              fontWeight: 700,
-              color: COLORS.blueDark,
-              ...fadeUp(frame, 58, 22),
-            }}
-          >
-            <span
-              style={{
-                width: 14,
-                height: 14,
-                borderRadius: "50%",
-                background: COLORS.blue,
-              }}
-            />
-            {`Avec ${MASCOTTE_NAME}, votre guide anti-humidité`}
-          </div>
+          <Logo size={228} showBaseline />
         </div>
 
-        <CaptionTrack lines={SCRIPT.intro} />
+        <Mascotte
+          src="mascotte2.png"
+          height={VICTOR_H}
+          delay={4}
+          wave
+          bobPeriod={30}
+          style={{ position: "absolute", left, bottom: VICTOR_BOTTOM }}
+        />
+
+        {/* Petite ombre au sol */}
+        <div
+          style={{
+            position: "absolute",
+            left: left + 60,
+            top: GROUND - 18,
+            width: 276,
+            height: 34,
+            borderRadius: "50%",
+            background: "rgba(14, 58, 85, 0.18)",
+            opacity: Math.min(1, enter * 2),
+          }}
+        />
+
+        <SpeechTrack
+          lines={SCRIPT.intro}
+          anchor={{ left: 286, top: 108, width: 760 }}
+          tail={46}
+        />
       </AbsoluteFill>
     </Scene>
   );

@@ -1,5 +1,5 @@
 /**
- * Découpage temporel de la vidéo (30 fps, 1920x1080, ~70 s).
+ * Découpage temporel de « Victor fait l'injection » (30 fps, 1920x1080, 70 s).
  * Les séquences sont enchaînées bout à bout ; chaque scène déborde de
  * `SCENE_OVERLAP` frames sur la suivante pour permettre un fondu croisé.
  */
@@ -13,9 +13,9 @@ export const SCENE_OVERLAP = 18;
 
 export const SCENE_DURATIONS = {
   intro: 8 * FPS, // 0 → 8 s
-  probleme: 12 * FPS, // 8 → 20 s
-  diagnostic: 8 * FPS, // 20 → 28 s
-  solution: 22 * FPS, // 28 → 50 s
+  constat: 10 * FPS, // 8 → 18 s
+  percage: 14 * FPS, // 18 → 32 s
+  injection: 18 * FPS, // 32 → 50 s
   resultat: 10 * FPS, // 50 → 60 s
   cta: 10 * FPS, // 60 → 70 s
 } as const;
@@ -24,18 +24,18 @@ export type SceneId = keyof typeof SCENE_DURATIONS;
 
 export const SCENE_ORDER: SceneId[] = [
   "intro",
-  "probleme",
-  "diagnostic",
-  "solution",
+  "constat",
+  "percage",
+  "injection",
   "resultat",
   "cta",
 ];
 
 export const SCENE_TITLES: Record<SceneId, string> = {
-  intro: "Bienvenue",
-  probleme: "Le problème",
-  diagnostic: "Le diagnostic",
-  solution: "La solution",
+  intro: "Bonjour !",
+  constat: "Le constat",
+  percage: "Le perçage",
+  injection: "L'injection",
   resultat: "Le résultat",
   cta: "Diagnostic gratuit",
 };

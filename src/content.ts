@@ -25,101 +25,86 @@ export type CaptionLine = {
   text: string;
 };
 
-/** Texte parlé, découpé en phrases affichées au bas de l'écran. */
+/** Répliques de Victor, affichées dans sa bulle de BD. */
 export const SCRIPT: Record<string, CaptionLine[]> = {
   intro: [
     {
-      from: 46,
-      durationInFrames: 66,
-      text: `Bonjour ! Je suis ${MASCOTTE_NAME}…`,
-    },
-    {
-      from: 112,
-      durationInFrames: 80,
-      text: "…et aujourd'hui je vais vous expliquer un problème que beaucoup de maisons anciennes connaissent :",
-    },
-    {
-      from: 192,
-      durationInFrames: 60,
-      text: "les remontées capillaires !",
-    },
-  ],
-  probleme: [
-    {
       from: 30,
-      durationInFrames: 110,
-      text: "L'humidité remonte du sol dans vos murs, comme une éponge.",
+      durationInFrames: 92,
+      text: `Bonjour ! Je suis ${MASCOTTE_NAME}, votre guide anti-humidité.`,
     },
     {
-      from: 140,
-      durationInFrames: 110,
-      text: "Résultat : le plâtrage se détache, des taches de moisissure apparaissent,",
-    },
-    {
-      from: 250,
-      durationInFrames: 120,
-      text: "et les murs restent humides malgré tous vos efforts.",
+      from: 122,
+      durationInFrames: 130,
+      text: "Aujourd'hui je vous montre comment on stoppe les remontées capillaires, en direct !",
     },
   ],
-  diagnostic: [
+  constat: [
     {
-      from: 20,
-      durationInFrames: 90,
-      text: "La première étape, c'est le diagnostic :",
+      from: 24,
+      durationInFrames: 104,
+      text: "Regardez ce mur : le plâtre se détache, il y a de la moisissure…",
     },
     {
-      from: 110,
+      from: 128,
+      durationInFrames: 94,
+      text: "L'humidité remonte du sol, comme une éponge.",
+    },
+    {
+      from: 222,
+      durationInFrames: 96,
+      text: "Mais pas de panique, j'ai la solution !",
+    },
+  ],
+  percage: [
+    {
+      from: 18,
+      durationInFrames: 132,
+      text: "Première étape : je perce des trous tous les 10 centimètres,",
+    },
+    {
+      from: 150,
       durationInFrames: 140,
-      text: "on identifie précisément où l'humidité remonte dans la maçonnerie.",
+      text: "bien alignés dans le joint de ciment, juste au-dessus du sol.",
+    },
+    {
+      from: 290,
+      durationInFrames: 148,
+      text: "Un diamètre de 12 millimètres, pas plus !",
     },
   ],
-  solution: [
+  injection: [
     {
-      from: 12,
-      durationInFrames: 98,
-      text: "Notre solution ? La technique d'injection.",
+      from: 18,
+      durationInFrames: 150,
+      text: "Ensuite, j'injecte notre crème hydrofuge dans chaque trou.",
     },
     {
-      from: 110,
-      durationInFrames: 110,
-      text: "On perce des petits trous tous les 10 centimètres,",
+      from: 168,
+      durationInFrames: 200,
+      text: "Elle se diffuse dans la maçonnerie et crée une vraie barrière étanche horizontale",
     },
     {
-      from: 220,
-      durationInFrames: 120,
-      text: "directement dans le joint de ciment horizontal, juste au-dessus du sol.",
-    },
-    {
-      from: 340,
-      durationInFrames: 110,
-      text: "Ensuite, on y injecte une crème hydrofuge spéciale,",
-    },
-    {
-      from: 450,
-      durationInFrames: 110,
-      text: "qui crée une véritable barrière étanche à l'intérieur du mur",
-    },
-    {
-      from: 560,
-      durationInFrames: 110,
-      text: "— même sur des murs avec 95 % d'humidité !",
+      from: 368,
+      durationInFrames: 190,
+      text: "— même sur des murs très humides !",
     },
   ],
   resultat: [
     {
-      from: 20,
-      durationInFrames: 110,
-      text: "Cette barrière empêche l'humidité de remonter plus haut.",
+      from: 18,
+      durationInFrames: 92,
+      text: "Je referme les trous, et voilà !",
     },
     {
-      from: 130,
-      durationInFrames: 70,
-      text: "Les trous sont ensuite rebouchés,",
+      from: 110,
+      durationInFrames: 84,
+      text: "L'humidité ne peut plus remonter.",
     },
     {
-      from: 200,
-      durationInFrames: 110,
-      text: "et le mur peut sécher et retrouver son aspect d'origine.",
+      from: 194,
+      durationInFrames: 124,
+      text: "Le mur va sécher tranquillement et retrouver son aspect d'origine.",
     },
   ],
   cta: [

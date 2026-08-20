@@ -1,12 +1,13 @@
 import React from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { COLORS, SHADOW } from "../theme";
-import { CaptionTrack } from "../components/Caption";
 import { Logo } from "../components/Logo";
 import { Mascotte } from "../components/Mascotte";
 import { Scene } from "../components/Scene";
+import { SpeechTrack } from "../components/SpeechBubble";
+import { GROUND, VICTOR_BOTTOM } from "../components/Stage";
 import { BRAND, SCRIPT } from "../content";
-import { bob, fadeUp, useSpringIn } from "../animations";
+import { fadeUp, useSpringIn } from "../animations";
 
 const ICONS: Record<string, React.ReactNode> = {
   phone: (
@@ -42,19 +43,20 @@ const ContactCard: React.FC<{
       style={{
         flex: 1,
         background: COLORS.white,
-        borderRadius: 24,
-        boxShadow: SHADOW.card,
-        padding: "24px 28px",
+        border: `5px solid ${COLORS.blueDeep}`,
+        borderRadius: 26,
+        boxShadow: SHADOW.soft,
+        padding: "20px 24px",
         display: "flex",
         alignItems: "center",
-        gap: 20,
+        gap: 18,
         ...fadeUp(frame, delay, 20, 26),
       }}
     >
       <div
         style={{
-          width: 62,
-          height: 62,
+          width: 58,
+          height: 58,
           borderRadius: 18,
           background: COLORS.bluePale,
           display: "flex",
@@ -63,14 +65,14 @@ const ContactCard: React.FC<{
           flexShrink: 0,
         }}
       >
-        <svg width={34} height={34} viewBox="0 0 32 32">
+        <svg width={32} height={32} viewBox="0 0 32 32">
           {ICONS[icon]}
         </svg>
       </div>
       <div style={{ minWidth: 0 }}>
         <div
           style={{
-            fontSize: 20,
+            fontSize: 19,
             fontWeight: 800,
             letterSpacing: 2,
             textTransform: "uppercase",
@@ -81,9 +83,9 @@ const ContactCard: React.FC<{
         </div>
         <div
           style={{
-            marginTop: 4,
-            fontSize: 30,
-            fontWeight: 700,
+            marginTop: 3,
+            fontSize: 29,
+            fontWeight: 800,
             color: COLORS.ink,
             whiteSpace: "nowrap",
           }}
@@ -95,54 +97,27 @@ const ContactCard: React.FC<{
   );
 };
 
-/** Séquence 6 — Écran de fin / appel à l'action (60 → 70 s). */
+/** Séquence 6 — Victor salue devant le logo (60 → 70 s). */
 export const Scene6Cta: React.FC<{ durationInFrames: number }> = ({
   durationInFrames,
 }) => {
   const frame = useCurrentFrame();
   const logoIn = useSpringIn(2, { damping: 13, mass: 0.8, stiffness: 100 });
-  const pulse = 1 + bob(frame, 96, 0.03);
 
   return (
     <Scene durationInFrames={durationInFrames}>
       <AbsoluteFill>
-        {/* Halo derrière le logo */}
-        <div
-          style={{
-            position: "absolute",
-            left: 60,
-            top: 130,
-            width: 760,
-            height: 760,
-            borderRadius: "50%",
-            transform: `scale(${pulse})`,
-            background: `radial-gradient(circle, ${COLORS.blueLight}30 0%, ${COLORS.blueLight}00 62%)`,
-          }}
-        />
+        <AbsoluteFill style={{ background: "rgba(255,255,255,0.55)" }} />
 
-        <div style={{ position: "absolute", left: 132, top: 196, width: 1200 }}>
+        <div style={{ position: "absolute", left: 148, top: 168, width: 1150 }}>
           <div
             style={{
               opacity: Math.min(1, logoIn * 1.4),
-              transform: `scale(${interpolate(logoIn, [0, 1], [0.72, 1])})`,
+              transform: `scale(${interpolate(logoIn, [0, 1], [0.7, 1])})`,
               transformOrigin: "0% 50%",
             }}
           >
-            <Logo size={252} showBaseline />
-          </div>
-
-          <div
-            style={{
-              marginTop: 44,
-              fontSize: 60,
-              lineHeight: 1.16,
-              fontWeight: 800,
-              color: COLORS.ink,
-              ...fadeUp(frame, 26, 22),
-            }}
-          >
-            Une solution <span style={{ color: COLORS.blue }}>simple</span>,{" "}
-            <span style={{ color: COLORS.blue }}>durable</span> et garantie.
+            <Logo size={244} showBaseline />
           </div>
 
           <div
@@ -153,44 +128,50 @@ export const Scene6Cta: React.FC<{ durationInFrames: number }> = ({
               gap: 18,
               background: `linear-gradient(135deg, ${COLORS.blue}, ${COLORS.blueDark})`,
               color: COLORS.white,
+              border: `6px solid ${COLORS.blueDeep}`,
               borderRadius: 999,
-              padding: "20px 40px",
-              fontSize: 36,
-              fontWeight: 800,
-              letterSpacing: 1.2,
+              padding: "18px 40px",
+              fontSize: 38,
+              fontWeight: 900,
+              letterSpacing: 1,
               boxShadow: SHADOW.card,
-              ...fadeUp(frame, 50, 22),
+              ...fadeUp(frame, 40, 22),
             }}
           >
             Diagnostic gratuit sur notre stand
           </div>
 
-          <div style={{ display: "flex", gap: 22, marginTop: 40 }}>
-            <ContactCard
-              icon="phone"
-              label="Téléphone"
-              value={BRAND.phone}
-              delay={76}
-            />
-            <ContactCard icon="web" label="Site" value={BRAND.site} delay={94} />
-            <ContactCard
-              icon="pin"
-              label="Salon"
-              value={BRAND.stand}
-              delay={112}
-            />
+          <div style={{ display: "flex", gap: 20, marginTop: 32 }}>
+            <ContactCard icon="phone" label="Téléphone" value={BRAND.phone} delay={70} />
+            <ContactCard icon="web" label="Site" value={BRAND.site} delay={88} />
+            <ContactCard icon="pin" label="Salon" value={BRAND.stand} delay={106} />
           </div>
         </div>
 
         <Mascotte
           height={560}
-          delay={18}
+          delay={12}
           slideFrom={120}
           wave
-          style={{ position: "absolute", left: 1440, bottom: 224 }}
+          style={{ position: "absolute", left: 1450, bottom: VICTOR_BOTTOM }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            left: 1502,
+            top: GROUND - 18,
+            width: 260,
+            height: 34,
+            borderRadius: "50%",
+            background: "rgba(14, 58, 85, 0.16)",
+          }}
         />
 
-        <CaptionTrack lines={SCRIPT.cta} />
+        <SpeechTrack
+          lines={SCRIPT.cta}
+          anchor={{ left: 872, top: 62, width: 700 }}
+          tail={82}
+        />
       </AbsoluteFill>
     </Scene>
   );

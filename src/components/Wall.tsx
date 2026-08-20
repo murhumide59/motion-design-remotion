@@ -1,6 +1,6 @@
 import React from "react";
-import { interpolate, random, useCurrentFrame } from "remotion";
-import { COLORS, SHADOW } from "../theme";
+import { interpolate, interpolateColors, random, useCurrentFrame } from "remotion";
+import { COLORS } from "../theme";
 
 /* ------------------------------------------------------------------ */
 /* Géométrie du schéma (repère SVG 960 x 660)                          */
@@ -27,24 +27,13 @@ export const holeX = (i: number) => HOLE_X0 + i * HOLE_SPACING;
 
 export const WALL_BOX = WALL;
 
-/** Habillage « carte blanche » du schéma, pour le détacher du fond. */
-export const wallCardStyle = (width: number): React.CSSProperties => ({
-  position: "absolute",
-  width,
-  height: (width * VIEW.h) / VIEW.w,
-  background: COLORS.white,
-  borderRadius: 30,
-  boxShadow: SHADOW.card,
-  overflow: "hidden",
-});
-
 /* ------------------------------------------------------------------ */
 /* Décors déterministes (positions figées, jamais aléatoires au rendu)  */
 /* ------------------------------------------------------------------ */
 
 const MOULD = Array.from({ length: 9 }, (_, i) => ({
   x: WALL.x + 50 + random(`mx${i}`) * (WALL.w - 100),
-  y: 150 + random(`my${i}`) * 200,
+  y: 240 + random(`my${i}`) * 150,
   blobs: Array.from({ length: 5 }, (_, j) => ({
     dx: (random(`mbx${i}${j}`) - 0.5) * 44,
     dy: (random(`mby${i}${j}`) - 0.5) * 30,
@@ -67,11 +56,11 @@ const PEBBLES = Array.from({ length: 26 }, (_, i) => ({
   o: 0.14 + random(`po${i}`) * 0.16,
 }));
 
-const FLAKES = Array.from({ length: 8 }, (_, i) => {
-  const x = WALL.x + 30 + random(`fx${i}`) * (WALL.w - 150);
-  const y = 90 + random(`fy${i}`) * 190;
-  const w = 48 + random(`fw${i}`) * 56;
-  const h = 42 + random(`fh${i}`) * 44;
+const FLAKES = Array.from({ length: 11 }, (_, i) => {
+  const x = WALL.x + 26 + random(`fx${i}`) * (WALL.w - 110);
+  const y = 196 + random(`fy${i}`) * 150;
+  const w = 34 + random(`fw${i}`) * 40;
+  const h = 30 + random(`fh${i}`) * 34;
   const jitter = (k: string) => (random(`fj${i}${k}`) - 0.5) * 18;
   const points = [
     [x + jitter("a"), y + jitter("b")],
@@ -84,7 +73,7 @@ const FLAKES = Array.from({ length: 8 }, (_, i) => {
     cx: x + w / 2,
     cy: y + h / 2,
     dir: random(`fd${i}`) > 0.5 ? 1 : -1,
-    start: i / 10,
+    start: i / 13,
   };
 });
 
@@ -120,12 +109,14 @@ export type WallProps = {
   jointHighlight?: number;
   /** Progression du perçage des trous (0 → 1). */
   holes?: number;
-  /** Trous rebouchés après injection. */
-  patched?: boolean;
+  /** Rebouchage des trous, de la droite vers la gauche (0 → 1). */
+  patched?: number;
   /** Progression de la barrière hydrofuge injectée (0 → 1). */
   barrier?: number;
   /** Mur assaini : le plâtre retrouve sa teinte d'origine (0 → 1). */
   clean?: number;
+  /** Plâtre refait : les zones épaufrées se referment (0 → 1). */
+  repaired?: number;
   /** Largeur de rendu en px (le schéma garde son ratio). */
   width?: number;
   style?: React.CSSProperties;
@@ -146,9 +137,10 @@ export const Wall: React.FC<WallProps> = ({
   flaking = 0,
   jointHighlight = 0,
   holes = 0,
-  patched = false,
+  patched = 0,
   barrier = 0,
   clean = 0,
+  repaired = 0,
   width = 960,
   style,
   uid = "w",
@@ -159,7 +151,7 @@ export const Wall: React.FC<WallProps> = ({
   const crest = dampCrest(dampTop, frame / 30);
   const dampArea = `${crest} L${WALL.x + WALL.w} ${WALL_BOTTOM} L${WALL.x} ${WALL_BOTTOM} Z`;
 
-  const plasterFill = clean > 0.5 ? "#F8F2E7" : "#EDE4D3";
+  const plasterFill = interpolateColors(clean, [0, 1], ["#EDE4D3", "#F8F2E7"]);
   const plasterStain = interpolate(clean, [0, 1], [1, 0]);
 
   const id = (name: string) => `${uid}-${name}`;
@@ -184,9 +176,9 @@ export const Wall: React.FC<WallProps> = ({
           y2={WALL_BOTTOM}
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0%" stopColor={COLORS.damp} stopOpacity={0.04} />
-          <stop offset="26%" stopColor={COLORS.damp} stopOpacity={0.36} />
-          <stop offset="100%" stopColor={COLORS.dampDark} stopOpacity={0.68} />
+          <stop offset="0%" stopColor={COLORS.damp} stopOpacity={0.08} />
+          <stop offset="22%" stopColor={COLORS.damp} stopOpacity={0.5} />
+          <stop offset="100%" stopColor={COLORS.dampDark} stopOpacity={0.82} />
         </linearGradient>
         <linearGradient id={id("soil")} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={COLORS.soil} />
@@ -215,23 +207,6 @@ export const Wall: React.FC<WallProps> = ({
           <path d={dampArea} />
         </clipPath>
 
-        {/* Le plâtrage : un masque troué là où il s'est détaché. */}
-        <mask id={id("plasterMask")}>
-          <rect
-            x={WALL.x}
-            y={WALL.y}
-            width={WALL.w}
-            height={PLASTER_BOTTOM - WALL.y}
-            fill="white"
-          />
-          {FLAKES.map((f, i) => {
-            const p = interpolate(flaking, [f.start, f.start + 0.16], [0, 1], {
-              extrapolateLeft: "clamp",
-              extrapolateRight: "clamp",
-            });
-            return p > 0.1 ? <path key={i} d={f.d} fill="black" /> : null;
-          })}
-        </mask>
       </defs>
 
       {/* ---------------- Sol ---------------- */}
@@ -277,13 +252,13 @@ export const Wall: React.FC<WallProps> = ({
               rx={3}
               fill={`url(#${id("brick")})`}
               stroke={COLORS.brickEdge}
-              strokeWidth={1.5}
+              strokeWidth={3}
             />
           ));
         })}
 
-        {/* Plâtrage intérieur, troué là où il se détache */}
-        <g mask={`url(#${id("plasterMask")})`}>
+        {/* Plâtrage intérieur */}
+        <g>
           <rect
             x={WALL.x}
             y={WALL.y}
@@ -323,8 +298,8 @@ export const Wall: React.FC<WallProps> = ({
               d={crest}
               fill="none"
               stroke={COLORS.dampDark}
-              strokeWidth={3}
-              strokeOpacity={0.4}
+              strokeWidth={5}
+              strokeOpacity={0.5}
               strokeLinecap="round"
             />
           ) : null}
@@ -340,7 +315,7 @@ export const Wall: React.FC<WallProps> = ({
           );
           if (o <= 0.001) return null;
           return (
-            <g key={i} opacity={o} filter={`url(#${id("soft")})`}>
+            <g key={i} opacity={o}>
               {spot.blobs.map((b, j) => (
                 <circle
                   key={j}
@@ -348,6 +323,9 @@ export const Wall: React.FC<WallProps> = ({
                   cy={spot.y + b.dy}
                   r={b.r}
                   fill={COLORS.mould}
+                  stroke={COLORS.mould}
+                  strokeWidth={6}
+                  strokeOpacity={0.35}
                 />
               ))}
             </g>
@@ -392,21 +370,22 @@ export const Wall: React.FC<WallProps> = ({
         ) : null}
       </g>
 
-      {/* Bords des zones décollées, pour bien lire l'épaufrure */}
+      {/* Épaufrures : la sous-couche apparaît là où le plâtre est parti */}
       <g clipPath={`url(#${id("wallClip")})`}>
         {FLAKES.map((f, i) => {
           const p = interpolate(flaking, [f.start, f.start + 0.16], [0, 1], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
           });
-          return p > 0.1 ? (
+          const closed = repaired * FLAKES.length > i;
+          return p > 0.1 && !closed ? (
             <path
               key={i}
               d={f.d}
-              fill="none"
-              stroke="#B9A78C"
-              strokeWidth={2}
-              opacity={0.5}
+              fill="#D6C6A6"
+              stroke="#A98D6A"
+              strokeWidth={4}
+              opacity={0.95}
             />
           ) : null;
         })}
@@ -440,9 +419,9 @@ export const Wall: React.FC<WallProps> = ({
         height={WALL.h}
         rx={5}
         fill="none"
-        stroke={COLORS.ink}
-        strokeOpacity={0.32}
-        strokeWidth={4}
+        stroke={COLORS.blueDeep}
+        strokeOpacity={0.9}
+        strokeWidth={8}
       />
 
       {/* Sol au premier plan (vue en coupe : la fondation reste lisible) */}
@@ -452,7 +431,7 @@ export const Wall: React.FC<WallProps> = ({
         width={VIEW.w}
         height={VIEW.h - GROUND_Y}
         fill={`url(#${id("soil")})`}
-        opacity={0.5}
+        opacity={0.78}
       />
       <line
         x1={0}
@@ -460,7 +439,7 @@ export const Wall: React.FC<WallProps> = ({
         x2={VIEW.w}
         y2={GROUND_Y}
         stroke={COLORS.soilDark}
-        strokeWidth={5}
+        strokeWidth={6}
       />
 
       {/* Joint de ciment horizontal mis en évidence */}
@@ -483,7 +462,7 @@ export const Wall: React.FC<WallProps> = ({
             rx={13}
             fill="none"
             stroke={COLORS.blue}
-            strokeWidth={4}
+            strokeWidth={5}
             strokeDasharray="15 10"
           />
         </g>
@@ -517,8 +496,8 @@ export const Wall: React.FC<WallProps> = ({
             x={WALL.x + 6}
             y={JOINT_Y - 8}
             width={(WALL.w - 12) * barrier}
-            height={16}
-            rx={8}
+            height={20}
+            rx={10}
             fill={`url(#${id("barrier")})`}
             filter={`url(#${id("glow")})`}
           />
@@ -531,6 +510,7 @@ export const Wall: React.FC<WallProps> = ({
         if (p <= 0.01) return null;
         const x = holeX(i);
         const injected = WALL.x + 6 + (WALL.w - 12) * barrier > x;
+        const plugged = patched * HOLE_COUNT > HOLE_COUNT - 1 - i;
         return (
           <g key={i}>
             {p < 1 ? (
@@ -545,12 +525,12 @@ export const Wall: React.FC<WallProps> = ({
             <circle
               cx={x}
               cy={JOINT_Y}
-              r={(patched ? 5 : 6.5) * p}
-              fill={patched || injected ? COLORS.mortar : "#2B2118"}
-              opacity={patched || injected ? 0.55 : 1}
-              stroke={COLORS.white}
-              strokeWidth={1.5}
-              strokeOpacity={injected || patched ? 0 : 0.35}
+              r={(plugged ? 5.5 : 7) * p}
+              fill={plugged || injected ? COLORS.mortar : "#2B2118"}
+              opacity={plugged || injected ? 0.7 : 1}
+              stroke={COLORS.blueDeep}
+              strokeWidth={2.5}
+              strokeOpacity={plugged || injected ? 0.35 : 0.9}
             />
           </g>
         );

@@ -1,7 +1,9 @@
-# Vidéo Mur Humide Hauts-de-France — les remontées capillaires
+# « Victor fait l'injection » — vidéo Mur Humide Hauts-de-France
 
-Vidéo explicative animée avec [Remotion](https://remotion.dev), destinée à
-tourner en boucle sur un écran TV lors d'un salon de l'habitat.
+Film d'animation réalisé avec [Remotion](https://remotion.dev), destiné à
+tourner en boucle sur un écran TV lors d'un salon de l'habitat. Victor, la
+mascotte, réalise le traitement en direct : constat, perçage, injection,
+résultat.
 
 - **Format** : 1920 × 1080 (16:9 horizontal)
 - **Cadence** : 30 fps
@@ -23,56 +25,68 @@ npm run lint     # eslint + tsc
 
 ## Déroulé des 6 séquences
 
-| # | Séquence | Timecode | Frames | Contenu |
-|---|----------|----------|--------|---------|
-| 1 | Intro | 0 → 8 s | 0-240 | Apparition de Victor (fondu + scale spring), logo Mur Humide |
-| 2 | Le problème | 8 → 20 s | 240-600 | Mur en coupe, flèches d'humidité montant du sol, plâtrage qui se détache, moisissures |
-| 3 | Le diagnostic | 20 → 28 s | 600-840 | Loupe qui ausculte le mur, check-list, hygromètre animé jusqu'à 95 % |
-| 4 | La solution | 28 → 50 s | 840-1500 | Étape 1 : perçage tous les 10 cm dans le joint. Étape 2 : injection de la crème hydrofuge et barrière étanche |
-| 5 | Le résultat | 50 → 60 s | 1500-1800 | Balayage avant/après : le mur redevient sain et sec, trous rebouchés |
-| 6 | Écran de fin | 60 → 70 s | 1800-2100 | Logo, coordonnées, mascotte qui salue, appel au diagnostic gratuit |
+| # | Séquence | Timecode | Ce qui se passe à l'image |
+|---|----------|----------|---------------------------|
+| 1 | Intro | 0 → 8 s | Victor entre en scène, salue, logo Mur Humide |
+| 2 | Le constat | 8 → 18 s | Il s'approche du mur, le touche : une écaille de plâtre tombe (« CRAC ! »), l'humidité remonte, moisissures, puis l'ampoule de l'idée |
+| 3 | Le perçage | 18 → 32 s | Perceuse en main, il avance le long du joint et perce les 13 trous, poussière et étoiles d'impact, mètre-ruban « 10 cm », badge « Ø 12 mm » |
+| 4 | L'injection | 32 → 50 s | Pistolet à cartouche, il injecte trou par trou ; la crème bleue diffuse et la barrière étanche se dessine sous ses pas |
+| 5 | Le résultat | 50 → 60 s | Il rebouche les trous à la truelle, recule et admire : le mur sèche, les moisissures disparaissent, le plâtre est refait |
+| 6 | Écran de fin | 60 → 70 s | Victor salue devant le logo, coordonnées et diagnostic gratuit |
 
 Les scènes se recouvrent de `SCENE_OVERLAP` frames (18) pour un fondu croisé
-continu ; le fond et la barre de progression ne sont jamais coupés.
+continu.
 
 ## Structure du code
 
 ```
 brand/                     fichiers sources fournis par le client
-public/                    assets utilisés au rendu (logo.png, mascotte.png)
+public/                    assets utilisés au rendu (logo, mascotte)
 src/
 ├─ index.ts               point d'entrée Remotion
 ├─ Root.tsx               déclaration de la composition
-├─ MurhumideVideo.tsx     assemblage des 6 séquences
+├─ MurhumideVideo.tsx     décor permanent + les 6 séquences
 ├─ timeline.ts            format, durées et ordre des séquences
 ├─ content.ts             TOUS les textes + nom de la mascotte + coordonnées
 ├─ theme.ts               couleurs de la charte, typo, ombres
 ├─ animations.ts          helpers spring / interpolate réutilisables
-├─ components/            briques réutilisables
-│  ├─ Scene.tsx           enveloppe de séquence (fondu croisé)
-│  ├─ Background.tsx      fond continu de la vidéo
-│  ├─ Logo.tsx            logo officiel (public/logo.png) + « HAUTS-DE-FRANCE »
-│  ├─ Mascotte.tsx        Victor, la mascotte animée (public/mascotte.png)
-│  ├─ Caption.tsx         sous-titres synchronisés du commentaire
-│  ├─ SceneHeader.tsx     bandeau « étape N + titre » et logo
+├─ wallState.ts           état du mur (humidité, trous, barrière, séchage)
+│                         calculé à partir de la frame absolue
+├─ components/
+│  ├─ Set.tsx             décor permanent : ciel, sol, mur, logo, progression
+│  ├─ Stage.tsx           ciel, sol, repères de placement (sol, joint, Victor)
+│  ├─ Wall.tsx            le mur en coupe, piloté par props
+│  ├─ Mascotte.tsx        Victor (deux poses, marche et salut)
+│  ├─ Tools.tsx           perceuse, pistolet à cartouche, mètre, truelle
+│  ├─ Effects.tsx         poussière, étoiles d'impact, onomatopées, étincelles
+│  ├─ SpeechBubble.tsx    bulle de BD, la pointe suit Victor
 │  ├─ Callout.tsx         étiquette incrustée qui « pope »
-│  ├─ MoistureGauge.tsx   hygromètre du diagnostic
+│  ├─ Logo.tsx            logo officiel + « HAUTS-DE-FRANCE »
 │  ├─ ProgressBar.tsx     barre de progression globale
-│  └─ Wall.tsx            schéma de mur en coupe (partagé par les scènes 2, 4, 5)
+│  └─ Scene.tsx           enveloppe de séquence (fondu croisé)
 └─ scenes/                une séquence par fichier
    ├─ Scene1Intro.tsx
-   ├─ Scene2Probleme.tsx
-   ├─ Scene3Diagnostic.tsx
-   ├─ Scene4Solution.tsx
+   ├─ Scene2Constat.tsx
+   ├─ Scene3Percage.tsx
+   ├─ Scene4Injection.tsx
    ├─ Scene5Resultat.tsx
    └─ Scene6Cta.tsx
 ```
 
-`Wall.tsx` est le cœur graphique : un seul schéma SVG dont l'état (hauteur des
-remontées, moisissures, décollement du plâtre, perçages, barrière hydrofuge,
-mur assaini) est entièrement piloté par des props, ce qui permet de le faire
-évoluer d'une séquence à l'autre. Échelle du schéma : **40 px = 10 cm**, d'où
-les 13 perçages espacés de 10 cm sur le joint horizontal.
+Deux principes structurent le code :
+
+- **Le décor est continu.** `Set.tsx` est rendu une seule fois, hors des
+  séquences ; l'état du mur vient de `wallState.ts`, calculé à partir de la
+  frame absolue. Les scènes n'ajoutent que Victor, ses outils et son texte, ce
+  qui évite tout saut du décor d'une scène à l'autre.
+- **Victor et ses outils partagent le même repère.** `Stage.tsx` expose la
+  position du sol, celle du joint de ciment, l'abscisse de chaque trou et la
+  fonction `victorLeftFor()` qui place Victor pour que la pointe de son outil
+  vise exactement le trou en cours. C'est ce qui synchronise sa marche, la
+  perceuse, la poussière et l'apparition des trous dans le mur.
+
+Échelle du schéma : **40 px = 10 cm**, d'où les 13 perçages espacés de 10 cm
+sur le joint horizontal.
 
 ## À personnaliser avant diffusion
 

@@ -17,6 +17,10 @@ type Props = {
   slideFrom?: number;
   /** La mascotte fait « coucou » (balancement plus marqué). */
   wave?: boolean;
+  /** Période de la respiration en frames : plus court = démarche rebondie. */
+  bobPeriod?: number;
+  /** Amplitude verticale de la respiration / du pas, en px. */
+  bobAmount?: number;
   /** Inverse horizontalement (pour la faire regarder vers la droite). */
   flip?: boolean;
   style?: React.CSSProperties;
@@ -34,6 +38,8 @@ export const Mascotte: React.FC<Props> = ({
   delay = 0,
   slideFrom = 0,
   wave = false,
+  bobPeriod = 82,
+  bobAmount = 8,
   flip = false,
   style,
 }) => {
@@ -48,7 +54,7 @@ export const Mascotte: React.FC<Props> = ({
   const slide = interpolate(enter, [0, 1], [slideFrom, 0]);
 
   /* Respiration permanente + balancement « coucou ». */
-  const breathe = bob(frame, 82, 8);
+  const breathe = bob(frame, bobPeriod, bobAmount);
   const tilt = wave ? bob(frame, 30, 3.5) : bob(frame, 110, 1.2);
 
   return (
