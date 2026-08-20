@@ -1,7 +1,7 @@
 {
-  "name": "murhumide",
+  "name": "murhumide-video",
   "version": "1.0.0",
-  "description": "My Remotion video",
+  "description": "Vidéo explicative Murhumide — remontées capillaires & injection hydrofuge",
   "repository": {},
   "license": "UNLICENSED",
   "private": true,
@@ -9,9 +9,7 @@
     "@remotion/cli": "4.0.513",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "remotion": "4.0.513",
-    "@remotion/tailwind-v4": "4.0.513",
-    "tailwindcss": "4.0.0"
+    "remotion": "4.0.513"
   },
   "devDependencies": {
     "@remotion/eslint-config-flat": "4.0.513",
@@ -24,10 +22,8 @@
   "scripts": {
     "dev": "remotion studio",
     "build": "remotion bundle",
+    "render": "remotion render MurhumideVideo out/murhumide.mp4",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"
-  },
-  "sideEffects": [
-    "*.css"
-  ]
+  }
 }
