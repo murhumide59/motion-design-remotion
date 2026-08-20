@@ -12,11 +12,11 @@ const ICONS: Record<string, React.ReactNode> = {
   phone: (
     <path
       d="M7 4 h6 l3 7 l-4 2 a14 14 0 0 0 7 7 l2 -4 l7 3 v6 a3 3 0 0 1 -3 3 A22 22 0 0 1 4 7 a3 3 0 0 1 3 -3 Z"
-      fill={COLORS.green}
+      fill={COLORS.blue}
     />
   ),
   web: (
-    <g fill="none" stroke={COLORS.green} strokeWidth={2.8}>
+    <g fill="none" stroke={COLORS.blue} strokeWidth={2.8}>
       <circle cx={16} cy={16} r={12} />
       <ellipse cx={16} cy={16} rx={5} ry={12} />
       <line x1={4} y1={16} x2={28} y2={16} />
@@ -25,7 +25,7 @@ const ICONS: Record<string, React.ReactNode> = {
   pin: (
     <path
       d="M16 3 a10 10 0 0 1 10 10 c0 7 -10 16 -10 16 S6 20 6 13 A10 10 0 0 1 16 3 Z M16 9 a4 4 0 1 0 0 8 a4 4 0 0 0 0 -8 Z"
-      fill={COLORS.green}
+      fill={COLORS.blue}
     />
   ),
 };
@@ -56,7 +56,7 @@ const ContactCard: React.FC<{
           width: 62,
           height: 62,
           borderRadius: 18,
-          background: COLORS.greenPale,
+          background: COLORS.bluePale,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -116,7 +116,7 @@ export const Scene6Cta: React.FC<{ durationInFrames: number }> = ({
             height: 760,
             borderRadius: "50%",
             transform: `scale(${pulse})`,
-            background: `radial-gradient(circle, ${COLORS.greenLight}30 0%, ${COLORS.greenLight}00 62%)`,
+            background: `radial-gradient(circle, ${COLORS.blueLight}30 0%, ${COLORS.blueLight}00 62%)`,
           }}
         />
 
@@ -128,7 +128,7 @@ export const Scene6Cta: React.FC<{ durationInFrames: number }> = ({
               transformOrigin: "0% 50%",
             }}
           >
-            <Logo size={148} showBaseline />
+            <Logo variant="full" size={300} />
           </div>
 
           <div
@@ -141,8 +141,8 @@ export const Scene6Cta: React.FC<{ durationInFrames: number }> = ({
               ...fadeUp(frame, 26, 22),
             }}
           >
-            Une solution <span style={{ color: COLORS.green }}>simple</span>,{" "}
-            <span style={{ color: COLORS.green }}>durable</span> et garantie.
+            Une solution <span style={{ color: COLORS.blue }}>simple</span>,{" "}
+            <span style={{ color: COLORS.blue }}>durable</span> et garantie.
           </div>
 
           <div
@@ -151,7 +151,7 @@ export const Scene6Cta: React.FC<{ durationInFrames: number }> = ({
               display: "inline-flex",
               alignItems: "center",
               gap: 18,
-              background: `linear-gradient(135deg, ${COLORS.green}, ${COLORS.greenDark})`,
+              background: `linear-gradient(135deg, ${COLORS.blue}, ${COLORS.blueDark})`,
               color: COLORS.white,
               borderRadius: 999,
               padding: "20px 40px",
@@ -183,11 +183,11 @@ export const Scene6Cta: React.FC<{ durationInFrames: number }> = ({
         </div>
 
         <Mascotte
-          height={560}
+          height={520}
           delay={18}
           slideFrom={120}
           wave
-          style={{ position: "absolute", left: 1420, bottom: 180 }}
+          style={{ position: "absolute", left: 1424, bottom: 246 }}
         />
 
         <CaptionTrack lines={SCRIPT.cta} />

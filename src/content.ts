@@ -5,13 +5,13 @@
  */
 
 /** Nom de la mascotte — remplacez-le par le nom retenu. */
-export const MASCOTTE_NAME = "Hugo";
+export const MASCOTTE_NAME = "Victor";
 
 export const BRAND = {
-  name: "Murhumide",
-  baseline: "Traitement des remontées capillaires",
-  /** ⚠️ Coordonnées à remplacer par les vraies avant diffusion. */
-  phone: "01 23 45 67 89",
+  name: "Mur Humide",
+  baseline: "Hauts-de-France",
+  /** ⚠️ Site, e-mail et stand restent à confirmer avant diffusion. */
+  phone: "03 20 06 55 11",
   site: "www.murhumide.fr",
   email: "contact@murhumide.fr",
   stand: "Stand B12 — Hall 3",

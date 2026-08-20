@@ -150,8 +150,8 @@ export const Scene5Resultat: React.FC<{ durationInFrames: number }> = ({
               height: WALL_HEIGHT,
               opacity: lineOpacity,
               borderRadius: 4,
-              background: `linear-gradient(180deg, ${COLORS.greenLight}, ${COLORS.green})`,
-              boxShadow: `0 0 34px ${COLORS.barrierGlow}, 0 0 12px ${COLORS.green}`,
+              background: `linear-gradient(180deg, ${COLORS.blueLight}, ${COLORS.blue})`,
+              boxShadow: `0 0 34px ${COLORS.barrierGlow}, 0 0 12px ${COLORS.blue}`,
             }}
           />
 
@@ -189,7 +189,7 @@ export const Scene5Resultat: React.FC<{ durationInFrames: number }> = ({
               }}
             >
               <svg width={36} height={36} viewBox="0 0 40 40" style={{ flexShrink: 0 }}>
-                <circle cx={20} cy={20} r={19} fill={COLORS.green} />
+                <circle cx={20} cy={20} r={19} fill={COLORS.blue} />
                 <path
                   d="M12 20.5 l6 6 l11 -13"
                   fill="none"
@@ -212,7 +212,7 @@ export const Scene5Resultat: React.FC<{ durationInFrames: number }> = ({
             top: 268,
             opacity: Math.min(1, badge * 1.5),
             transform: `scale(${interpolate(badge, [0, 1], [0.6, 1])}) rotate(${bob(frame, 90, 1.4)}deg)`,
-            background: `linear-gradient(140deg, ${COLORS.green}, ${COLORS.greenDark})`,
+            background: `linear-gradient(140deg, ${COLORS.blue}, ${COLORS.blueDark})`,
             color: COLORS.white,
             borderRadius: 26,
             padding: "24px 34px",

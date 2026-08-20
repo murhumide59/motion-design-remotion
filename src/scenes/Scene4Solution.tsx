@@ -45,7 +45,7 @@ const StepCard: React.FC<{ index: number; opacity: number }> = ({
           fontWeight: 800,
           letterSpacing: 2.5,
           textTransform: "uppercase",
-          color: COLORS.green,
+          color: COLORS.blue,
         }}
       >
         {`Étape ${step.n} / 2`}
@@ -111,7 +111,7 @@ const WallAnnotations: React.FC<{ ruler: number; inject: number }> = ({
             y1={y - 4}
             x2={a}
             y2={JOINT_Y - 14}
-            stroke={COLORS.greenDark}
+            stroke={COLORS.blueDark}
             strokeWidth={3}
           />
           <line
@@ -119,7 +119,7 @@ const WallAnnotations: React.FC<{ ruler: number; inject: number }> = ({
             y1={y - 4}
             x2={b}
             y2={JOINT_Y - 14}
-            stroke={COLORS.greenDark}
+            stroke={COLORS.blueDark}
             strokeWidth={3}
           />
           <line
@@ -127,19 +127,19 @@ const WallAnnotations: React.FC<{ ruler: number; inject: number }> = ({
             y1={y}
             x2={b}
             y2={y}
-            stroke={COLORS.greenDark}
+            stroke={COLORS.blueDark}
             strokeWidth={3}
           />
           <polyline
             points={`${a + 11},${y - 6} ${a + 1},${y} ${a + 11},${y + 6}`}
             fill="none"
-            stroke={COLORS.greenDark}
+            stroke={COLORS.blueDark}
             strokeWidth={3}
           />
           <polyline
             points={`${b - 11},${y - 6} ${b - 1},${y} ${b - 11},${y + 6}`}
             fill="none"
-            stroke={COLORS.greenDark}
+            stroke={COLORS.blueDark}
             strokeWidth={3}
           />
           <rect
@@ -149,7 +149,7 @@ const WallAnnotations: React.FC<{ ruler: number; inject: number }> = ({
             height={38}
             rx={19}
             fill={COLORS.white}
-            stroke={COLORS.green}
+            stroke={COLORS.blue}
             strokeWidth={3}
           />
           <text
@@ -158,7 +158,7 @@ const WallAnnotations: React.FC<{ ruler: number; inject: number }> = ({
             textAnchor="middle"
             fontSize={26}
             fontWeight={800}
-            fill={COLORS.greenDark}
+            fill={COLORS.blueDark}
           >
             10 cm
           </text>
@@ -168,10 +168,10 @@ const WallAnnotations: React.FC<{ ruler: number; inject: number }> = ({
       {/* Cartouche d'injection qui progresse le long du joint */}
       {inject > 0.001 && inject < 0.999 ? (
         <g transform={`translate(${nozzleX} ${JOINT_Y - 116 + bob(frame, 22, 4)})`}>
-          <rect x={-19} y={-96} width={38} height={22} rx={7} fill={COLORS.greenDark} />
-          <rect x={-15} y={-78} width={30} height={64} rx={9} fill={COLORS.green} />
-          <rect x={-9} y={-66} width={18} height={40} rx={5} fill={COLORS.greenPale} opacity={0.75} />
-          <path d="M-7 -14 L7 -14 L3 24 L-3 24 Z" fill={COLORS.greenDark} />
+          <rect x={-19} y={-96} width={38} height={22} rx={7} fill={COLORS.blueDark} />
+          <rect x={-15} y={-78} width={30} height={64} rx={9} fill={COLORS.blue} />
+          <rect x={-9} y={-66} width={18} height={40} rx={5} fill={COLORS.bluePale} opacity={0.75} />
+          <path d="M-7 -14 L7 -14 L3 24 L-3 24 Z" fill={COLORS.blueDark} />
           <circle cx={0} cy={40} r={9} fill={COLORS.barrierGlow} opacity={0.9} />
           <circle cx={0} cy={62} r={6} fill={COLORS.barrierGlow} opacity={0.5} />
         </g>
@@ -222,7 +222,7 @@ export const Scene4Solution: React.FC<{ durationInFrames: number }> = ({
 
         <Callout
           text="Joint de ciment horizontal"
-          accent={COLORS.green}
+          accent={COLORS.blue}
           delay={92}
           rotate={-1.5}
           fontSize={30}
@@ -230,7 +230,7 @@ export const Scene4Solution: React.FC<{ durationInFrames: number }> = ({
         />
         <Callout
           text="Crème hydrofuge"
-          accent={COLORS.green}
+          accent={COLORS.blue}
           delay={372}
           rotate={1.5}
           fontSize={32}

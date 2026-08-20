@@ -17,7 +17,7 @@ type Props = {
 };
 
 /**
- * Mascotte Murhumide.
+ * Mascotte Mur Humide (Victor).
  *
  * L'image vit dans `public/mascotte.png` : remplacez simplement ce fichier
  * (PNG à fond transparent, format portrait) pour changer la mascotte, sans

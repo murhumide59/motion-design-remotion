@@ -16,14 +16,14 @@ export const ProgressBar: React.FC = () => {
         right: 0,
         bottom: 0,
         height: 10,
-        background: `${COLORS.greenDark}14`,
+        background: `${COLORS.blueDark}14`,
       }}
     >
       <div
         style={{
           height: "100%",
           width: `${progress * 100}%`,
-          background: `linear-gradient(90deg, ${COLORS.greenDark}, ${COLORS.green} 60%, ${COLORS.greenLight})`,
+          background: `linear-gradient(90deg, ${COLORS.blueDark}, ${COLORS.blue} 60%, ${COLORS.blueLight})`,
         }}
       />
     </div>

@@ -1,4 +1,4 @@
-# Vidéo Murhumide — les remontées capillaires
+# Vidéo Mur Humide Hauts-de-France — les remontées capillaires
 
 Vidéo explicative animée avec [Remotion](https://remotion.dev), destinée à
 tourner en boucle sur un écran TV lors d'un salon de l'habitat.
@@ -6,7 +6,7 @@ tourner en boucle sur un écran TV lors d'un salon de l'habitat.
 - **Format** : 1920 × 1080 (16:9 horizontal)
 - **Cadence** : 30 fps
 - **Durée** : 70 s (2100 frames)
-- **Identité** : vert & blanc Murhumide
+- **Identité** : bleu `#019EE5` & orange `#DD6A00` (charte Mur Humide)
 - **Composition** : `MurhumideVideo`
 
 ## Démarrer
@@ -25,7 +25,7 @@ npm run lint     # eslint + tsc
 
 | # | Séquence | Timecode | Frames | Contenu |
 |---|----------|----------|--------|---------|
-| 1 | Intro | 0 → 8 s | 0-240 | Apparition de la mascotte (fondu + scale spring), logo Murhumide |
+| 1 | Intro | 0 → 8 s | 0-240 | Apparition de Victor (fondu + scale spring), logo Mur Humide |
 | 2 | Le problème | 8 → 20 s | 240-600 | Mur en coupe, flèches d'humidité montant du sol, plâtrage qui se détache, moisissures |
 | 3 | Le diagnostic | 20 → 28 s | 600-840 | Loupe qui ausculte le mur, check-list, hygromètre animé jusqu'à 95 % |
 | 4 | La solution | 28 → 50 s | 840-1500 | Étape 1 : perçage tous les 10 cm dans le joint. Étape 2 : injection de la crème hydrofuge et barrière étanche |
@@ -49,8 +49,8 @@ src/
 ├─ components/            briques réutilisables
 │  ├─ Scene.tsx           enveloppe de séquence (fondu croisé)
 │  ├─ Background.tsx      fond continu de la vidéo
-│  ├─ Logo.tsx            marque Murhumide (goutte + wordmark)
-│  ├─ Mascotte.tsx        mascotte animée (public/mascotte.png)
+│  ├─ Logo.tsx            logo Mur Humide reconstitué en SVG (briques + wordmark)
+│  ├─ Mascotte.tsx        Victor, la mascotte animée (public/mascotte.png)
 │  ├─ Caption.tsx         sous-titres synchronisés du commentaire
 │  ├─ SceneHeader.tsx     bandeau « étape N + titre » et logo
 │  ├─ Callout.tsx         étiquette incrustée qui « pope »
@@ -74,12 +74,16 @@ les 13 perçages espacés de 10 cm sur le joint horizontal.
 
 ## À personnaliser avant diffusion
 
-1. **`public/mascotte.png`** — remplacer le visuel provisoire par la vraie
-   mascotte (PNG à fond transparent, format portrait, ~900 × 1200 px).
-   Aucun code à modifier.
-2. **`src/content.ts`** — `MASCOTTE_NAME` (actuellement « Hugo »), le
-   téléphone, le site et le numéro de stand, qui sont des valeurs d'exemple.
-3. **`src/theme.ts`** — ajuster les verts si la charte officielle diffère.
+1. **`public/mascotte.png`** — remplacer le placeholder par le visuel officiel
+   de **Victor** (PNG à fond transparent, format portrait, ~900 × 1200 px).
+   Aucun code à modifier : le composant gère l'entrée, la respiration et le
+   salut.
+2. **`src/components/Logo.tsx`** — le logo est reconstitué en SVG (bloc de
+   briques orange + « MUR HUMIDE » bleu + « HAUTS-DE-FRANCE »). Pour utiliser
+   le fichier officiel, déposez-le dans `public/logo.png` et remplacez le
+   contenu du composant par un `<Img src={staticFile("logo.png")} />`.
+3. **`src/content.ts`** — le site, l'e-mail et le numéro de stand sont encore
+   des valeurs d'exemple (le téléphone 03 20 06 55 11 est le bon).
 4. **`src/content.ts` → `SCRIPT`** — les sous-titres et leur minutage
    (`from` / `durationInFrames`, en frames, relatifs au début de la séquence)
    si un voice-over est ajouté ensuite.

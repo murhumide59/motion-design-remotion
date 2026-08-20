@@ -38,7 +38,7 @@ const Line: React.FC<{ text: string; durationInFrames: number }> = ({
           maxWidth: 1500,
           background: "rgba(255, 255, 255, 0.96)",
           borderRadius: 26,
-          borderLeft: `12px solid ${COLORS.green}`,
+          borderLeft: `12px solid ${COLORS.blue}`,
           boxShadow: SHADOW.card,
           padding: "26px 46px 28px",
           fontFamily: FONT,

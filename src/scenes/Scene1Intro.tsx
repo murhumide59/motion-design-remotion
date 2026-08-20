@@ -20,11 +20,11 @@ export const Scene1Intro: React.FC<{ durationInFrames: number }> = ({
     <Scene durationInFrames={durationInFrames}>
       <AbsoluteFill>
         <Mascotte
-          height={640}
+          height={600}
           delay={12}
           slideFrom={-160}
           wave
-          style={{ position: "absolute", left: 190, bottom: 150 }}
+          style={{ position: "absolute", left: 170, bottom: 246 }}
         />
 
         <div
@@ -32,7 +32,7 @@ export const Scene1Intro: React.FC<{ durationInFrames: number }> = ({
             position: "absolute",
             left: 900,
             right: 120,
-            top: 210,
+            top: 186,
           }}
         >
           <div
@@ -42,12 +42,12 @@ export const Scene1Intro: React.FC<{ durationInFrames: number }> = ({
               transformOrigin: "0% 50%",
             }}
           >
-            <Logo size={120} showBaseline />
+            <Logo variant="full" size={232} />
           </div>
 
           <div
             style={{
-              marginTop: 58,
+              marginTop: 50,
               fontSize: 74,
               lineHeight: 1.14,
               fontWeight: 800,
@@ -57,7 +57,7 @@ export const Scene1Intro: React.FC<{ durationInFrames: number }> = ({
           >
             Les remontées capillaires,
             <br />
-            <span style={{ color: COLORS.green }}>expliquées simplement.</span>
+            <span style={{ color: COLORS.blue }}>expliquées simplement.</span>
           </div>
 
           <div
@@ -72,7 +72,7 @@ export const Scene1Intro: React.FC<{ durationInFrames: number }> = ({
               boxShadow: SHADOW.soft,
               fontSize: 34,
               fontWeight: 700,
-              color: COLORS.greenDark,
+              color: COLORS.blueDark,
               ...fadeUp(frame, 58, 22),
             }}
           >
@@ -81,7 +81,7 @@ export const Scene1Intro: React.FC<{ durationInFrames: number }> = ({
                 width: 14,
                 height: 14,
                 borderRadius: "50%",
-                background: COLORS.green,
+                background: COLORS.blue,
               }}
             />
             {`Avec ${MASCOTTE_NAME}, votre guide anti-humidité`}

@@ -13,7 +13,7 @@ export const Background: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        background: `linear-gradient(155deg, ${COLORS.white} 0%, ${COLORS.offWhite} 48%, ${COLORS.greenPale} 100%)`,
+        background: `linear-gradient(155deg, ${COLORS.white} 0%, ${COLORS.offWhite} 48%, ${COLORS.bluePale} 100%)`,
       }}
     >
       <div
@@ -24,7 +24,7 @@ export const Background: React.FC = () => {
           borderRadius: "50%",
           left: -320 + bob(frame, 620, 26),
           top: -380 + bob(frame, 520, 18),
-          background: `radial-gradient(circle at 50% 50%, ${COLORS.greenLight}33 0%, ${COLORS.greenLight}00 68%)`,
+          background: `radial-gradient(circle at 50% 50%, ${COLORS.blueLight}33 0%, ${COLORS.blueLight}00 68%)`,
         }}
       />
       <div
@@ -35,14 +35,14 @@ export const Background: React.FC = () => {
           borderRadius: "50%",
           right: -420 - bob(frame, 700, 30),
           bottom: -560 + bob(frame, 460, 22),
-          background: `radial-gradient(circle at 50% 50%, ${COLORS.green}22 0%, ${COLORS.green}00 65%)`,
+          background: `radial-gradient(circle at 50% 50%, ${COLORS.blue}22 0%, ${COLORS.blue}00 65%)`,
         }}
       />
       {/* Trame diagonale très discrète */}
       <AbsoluteFill
         style={{
           opacity: 0.5,
-          backgroundImage: `repeating-linear-gradient(135deg, ${COLORS.green}0A 0px, ${COLORS.green}0A 2px, transparent 2px, transparent 26px)`,
+          backgroundImage: `repeating-linear-gradient(135deg, ${COLORS.blue}0A 0px, ${COLORS.blue}0A 2px, transparent 2px, transparent 26px)`,
         }}
       />
       <div
@@ -55,7 +55,7 @@ export const Background: React.FC = () => {
           opacity: interpolate(frame, [0, 20], [0, 1], {
             extrapolateRight: "clamp",
           }),
-          background: `linear-gradient(90deg, ${COLORS.green}, ${COLORS.greenLight})`,
+          background: `linear-gradient(90deg, ${COLORS.blue}, ${COLORS.blueLight})`,
         }}
       />
     </AbsoluteFill>

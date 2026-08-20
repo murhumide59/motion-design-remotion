@@ -35,7 +35,7 @@ export const SceneHeader: React.FC<Props> = ({ index, title, delay = 6 }) => {
             width: 66,
             height: 66,
             borderRadius: 22,
-            background: `linear-gradient(140deg, ${COLORS.green}, ${COLORS.greenDark})`,
+            background: `linear-gradient(140deg, ${COLORS.blue}, ${COLORS.blueDark})`,
             color: COLORS.white,
             fontSize: 34,
             fontWeight: 800,

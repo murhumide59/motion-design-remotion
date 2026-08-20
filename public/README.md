@@ -2,8 +2,8 @@
 
 ## mascotte.png
 
-⚠️ **Visuel provisoire.** L'image actuelle est une goutte générée
-automatiquement, en attendant la vraie mascotte Murhumide.
+⚠️ **Visuel provisoire.** L'image actuelle est une approximation de Victor,
+dessinée à la main en attendant le fichier officiel de la mascotte.
 
 Pour la remplacer : écrasez simplement `mascotte.png` par le visuel définitif.
 

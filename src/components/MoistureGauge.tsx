@@ -37,7 +37,7 @@ export const MoistureGauge: React.FC<Props> = ({
       <svg width={size} height={size * 0.6} viewBox="0 0 240 132">
         <defs>
           <linearGradient id="mh-gauge" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor={COLORS.green} />
+            <stop offset="0%" stopColor={COLORS.blue} />
             <stop offset="55%" stopColor={COLORS.damp} />
             <stop offset="100%" stopColor={COLORS.alert} />
           </linearGradient>

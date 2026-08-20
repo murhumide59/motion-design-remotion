@@ -20,7 +20,7 @@ const CHECKS = [
 const Loupe: React.FC<{ size: number }> = ({ size }) => (
   <svg width={size} height={size} viewBox="0 0 120 120">
     <g transform="rotate(35 60 60)">
-      <rect x={54} y={82} width={13} height={38} rx={6} fill={COLORS.greenDark} />
+      <rect x={54} y={82} width={13} height={38} rx={6} fill={COLORS.blueDark} />
     </g>
     <circle cx={60} cy={54} r={40} fill={COLORS.white} opacity={0.22} />
     <circle
@@ -28,7 +28,7 @@ const Loupe: React.FC<{ size: number }> = ({ size }) => (
       cy={54}
       r={40}
       fill="none"
-      stroke={COLORS.green}
+      stroke={COLORS.blue}
       strokeWidth={9}
     />
     <path
@@ -83,7 +83,7 @@ export const Scene3Diagnostic: React.FC<{ durationInFrames: number }> = ({
               fontWeight: 800,
               letterSpacing: 2,
               textTransform: "uppercase",
-              color: COLORS.green,
+              color: COLORS.blue,
               marginBottom: 22,
             }}
           >
@@ -104,11 +104,11 @@ export const Scene3Diagnostic: React.FC<{ durationInFrames: number }> = ({
               }}
             >
               <svg width={40} height={40} viewBox="0 0 40 40">
-                <circle cx={20} cy={20} r={19} fill={COLORS.greenPale} />
+                <circle cx={20} cy={20} r={19} fill={COLORS.bluePale} />
                 <path
                   d="M12 20.5 l6 6 l11 -13"
                   fill="none"
-                  stroke={COLORS.green}
+                  stroke={COLORS.blue}
                   strokeWidth={5}
                   strokeLinecap="round"
                   strokeLinejoin="round"

@@ -1,21 +1,28 @@
 /**
- * Charte visuelle Murhumide : vert & blanc.
- * Toutes les couleurs / typos de la vidéo sont centralisées ici.
+ * Charte visuelle Mur Humide Hauts-de-France.
+ * Bleu #019EE5 + orange #DD6A00, tirés du logo.
  */
 
 export const COLORS = {
-  /** Vert principal Murhumide */
-  green: "#12A150",
-  greenDark: "#0B5D3B",
-  greenDeep: "#082B1D",
-  greenLight: "#4ED18B",
-  greenPale: "#E6F7EE",
+  /** Bleu principal Mur Humide */
+  blue: "#019EE5",
+  blueDark: "#0176AB",
+  /** Bleu nuit : contours du logo, textes */
+  blueDeep: "#0E3A55",
+  blueLight: "#5AC8F2",
+  bluePale: "#E3F5FD",
+
+  /** Orange Mur Humide (briques du logo) */
+  orange: "#DD6A00",
+  orangeDark: "#A94F00",
+  orangeLight: "#F08A2E",
+  orangePale: "#FDEFE0",
 
   white: "#FFFFFF",
-  offWhite: "#F5FBF7",
+  offWhite: "#F4FBFE",
 
-  ink: "#0E2A20",
-  inkSoft: "#4A6259",
+  ink: "#122B3D",
+  inkSoft: "#4C6577",
 
   /** Humidité / remontées capillaires */
   damp: "#5C7F94",
@@ -24,21 +31,22 @@ export const COLORS = {
 
   /** Moisissures, plâtre qui se détache */
   mould: "#3E4A38",
-  alert: "#E4572E",
-  alertPale: "#FDE9E2",
+  /** Accent « alerte » : l'orange de la marque */
+  alert: "#DD6A00",
+  alertPale: "#FDEFE0",
 
-  /** Maçonnerie */
-  brick: "#DCD3C6",
-  brickDark: "#C0B4A3",
-  brickEdge: "#A89A86",
-  mortar: "#F0EBE2",
+  /** Maçonnerie (terre cuite, en écho aux briques du logo) */
+  brick: "#DE9257",
+  brickDark: "#C97B41",
+  brickEdge: "#A96331",
+  mortar: "#F5EFE6",
   plaster: "#FBF7F0",
   soil: "#8A6A4B",
   soilDark: "#6A5138",
 
   /** Barrière hydrofuge injectée */
-  barrier: "#12A150",
-  barrierGlow: "#8CF0C6",
+  barrier: "#019EE5",
+  barrierGlow: "#9BE4FF",
 } as const;
 
 export const FONT =
@@ -46,7 +54,7 @@ export const FONT =
 
 /** Ombres douces réutilisées sur les cartes / badges */
 export const SHADOW = {
-  card: "0 18px 46px rgba(8, 43, 29, 0.14)",
-  soft: "0 8px 22px rgba(8, 43, 29, 0.10)",
+  card: "0 18px 46px rgba(14, 58, 85, 0.16)",
+  soft: "0 8px 22px rgba(14, 58, 85, 0.12)",
   glow: `0 0 60px ${COLORS.barrierGlow}`,
 } as const;

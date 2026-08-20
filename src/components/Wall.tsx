@@ -193,9 +193,9 @@ export const Wall: React.FC<WallProps> = ({
           <stop offset="100%" stopColor={COLORS.soilDark} />
         </linearGradient>
         <linearGradient id={id("barrier")} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor={COLORS.greenDark} />
+          <stop offset="0%" stopColor={COLORS.blueDark} />
           <stop offset="45%" stopColor={COLORS.barrier} />
-          <stop offset="100%" stopColor={COLORS.greenLight} />
+          <stop offset="100%" stopColor={COLORS.blueLight} />
         </linearGradient>
         <filter id={id("glow")} x="-40%" y="-400%" width="180%" height="900%">
           <feGaussianBlur stdDeviation="6" result="b" />
@@ -404,9 +404,9 @@ export const Wall: React.FC<WallProps> = ({
               key={i}
               d={f.d}
               fill="none"
-              stroke={COLORS.brickEdge}
-              strokeWidth={2.5}
-              opacity={0.7}
+              stroke="#B9A78C"
+              strokeWidth={2}
+              opacity={0.5}
             />
           ) : null;
         })}
@@ -472,7 +472,7 @@ export const Wall: React.FC<WallProps> = ({
             width={WALL.w + 8}
             height={26}
             rx={13}
-            fill={COLORS.greenPale}
+            fill={COLORS.bluePale}
             opacity={0.35}
           />
           <rect
@@ -482,7 +482,7 @@ export const Wall: React.FC<WallProps> = ({
             height={26}
             rx={13}
             fill="none"
-            stroke={COLORS.green}
+            stroke={COLORS.blue}
             strokeWidth={4}
             strokeDasharray="15 10"
           />
